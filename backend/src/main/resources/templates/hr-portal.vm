@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="decorator" content="none" />
+    <meta name="application-base-url" content="$baseUrl" />
+    <title>$i18n.getText("hr-portal.page.title")</title>
+    #set($requiredResource = $resourceKey)
+    #if(!$requiredResource)
+        #set($requiredResource = "com.switchhr.jsm.hrportal:hr-portal-resources")
+    #end
+    $webResourceManager.requireResource($requiredResource)
+    <style>
+        body {
+            background: #f6f7fb;
+            margin: 0;
+        }
+        .hr-portal-shell {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 3rem 1.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="hr-portal-shell">
+        <div id="$mountNodeId" class="hr-portal-root"></div>
+    </div>
+
+    <script type="text/javascript">
+        (function () {
+            var mountId = "$mountNodeId";
+            var mountNode = document.getElementById(mountId);
+            if (!mountNode) {
+                console.error("HR Portal mount node not found", mountId);
+                return;
+            }
+
+            var context = {
+                baseUrl: "$baseUrl",
+                mountNodeId: mountId
+            };
+
+            window.HR_PORTAL_BOOTSTRAP = context;
+
+            if (typeof window.initializeHRPortalApp === "function") {
+                window.initializeHRPortalApp(context);
+                return;
+            }
+
+            var fallbackHtml = '' +
+                '<div class="aui-message aui-message-warning">' +
+                '  <p>$i18n.getText("hr-portal.bundle.missing")</p>' +
+                '</div>';
+
+            mountNode.innerHTML = fallbackHtml;
+            console.warn("HR Portal bundle expected web resource:", "$requiredResource");
+        })();
+    </script>
+</body>
+</html>
