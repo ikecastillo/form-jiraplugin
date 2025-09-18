@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 
 <atlassian-plugin key="${atlassian.plugin.key}" name="${project.name}" plugins-version="2">
     <plugin-info>
@@ -15,6 +15,7 @@
         <dependency>com.atlassian.auiplugin:ajs</dependency>
         <resource type="download" name="hr-portal.css" location="/frontend/hr-portal.css"/>
         <resource type="download" name="hr-portal.js" location="/frontend/hr-portal.js"/>
+        <resource type="download" name="switch-logo.png" location="/frontend/switch-logo.png"/>
         <context>hr-portal</context>
     </web-resource>
 

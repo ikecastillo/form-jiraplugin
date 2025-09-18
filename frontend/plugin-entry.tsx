@@ -1,10 +1,12 @@
-import * as React from "react";
+﻿import * as React from "react";
 import { createRoot, type Root } from "react-dom/client";
-import OnboardingForm from "./app/page";
+import PortalApp from "./app/page";
 
 type BootContext = {
   mountNodeId?: string;
   baseUrl?: string;
+  resourceBase?: string;
+  resourceKey?: string;
 };
 
 const DEFAULT_MOUNT_ID = "hr-portal-root";
@@ -35,11 +37,11 @@ function getMountNode(mountNodeId?: string) {
   return node;
 }
 
-function renderApp(target: Element) {
+function renderApp(target: Element, context: BootContext) {
   const root = createRoot(target);
   root.render(
     <React.StrictMode>
-      <OnboardingForm />
+      <PortalApp assetBase={context.resourceBase} />
     </React.StrictMode>,
   );
   return root;
@@ -61,7 +63,7 @@ function bootstrap(context: BootContext = {}) {
     }
   }
 
-  window[ROOT_STORAGE_KEY] = renderApp(node);
+  window[ROOT_STORAGE_KEY] = renderApp(node, context);
 }
 
 globalThis.initializeHRPortalApp = bootstrap;

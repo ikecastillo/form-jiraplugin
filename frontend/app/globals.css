@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Century+Gothic:wght@400;700&display=swap');
 @import "tailwindcss";
 @import "tw-animate-css";
 
@@ -51,7 +52,7 @@
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
+  --primary: #d31820;
   --primary-foreground: oklch(0.985 0 0);
   --secondary: oklch(0.97 0 0);
   --secondary-foreground: oklch(0.205 0 0);
@@ -62,7 +63,7 @@
   --destructive: oklch(0.577 0.245 27.325);
   --border: oklch(0.922 0 0);
   --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
+  --ring: #d31820;
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
@@ -70,12 +71,12 @@
   --chart-5: oklch(0.769 0.188 70.08);
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary: #d31820;
   --sidebar-primary-foreground: oklch(0.985 0 0);
   --sidebar-accent: oklch(0.97 0 0);
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  --sidebar-ring: #d31820;
 }
 
 .dark {
@@ -119,4 +120,43 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* Switch Brand Typography */
+.brand-heading {
+  font-family: 'Century Gothic', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 700;
+}
+
+.brand-text {
+  font-family: 'Century Gothic', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 400;
+}
+
+/* Form Components - Use Original Colors */
+.form-component {
+  --primary: oklch(0.205 0 0);
+  --ring: oklch(0.708 0 0);
+}
+
+.form-component:focus-visible {
+  --ring: oklch(0.708 0 0);
+}
+
+/* Apply to form inputs, selects, checkboxes */
+input[type="text"].form-component,
+input[type="email"].form-component,
+input[type="date"].form-component,
+input[type="file"].form-component,
+select.form-component,
+textarea.form-component,
+[role="combobox"].form-component {
+  --primary: oklch(0.205 0 0);
+  --ring: oklch(0.708 0 0);
+}
+
+/* Checkbox and Radio specific overrides */
+[data-state="checked"].form-component {
+  background-color: oklch(0.205 0 0);
+  border-color: oklch(0.205 0 0);
 }

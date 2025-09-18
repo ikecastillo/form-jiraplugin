@@ -6,6 +6,8 @@ const esbuild = require("esbuild");
 const projectRoot = path.resolve(__dirname, "..");
 const buildDir = path.join(projectRoot, "plugin-build");
 const resourcesDir = path.resolve(projectRoot, "..", "backend", "src", "main", "resources", "frontend");
+const publicDir = path.join(projectRoot, "public");
+const staticAssets = ["switch-logo.png"];
 
 function ensureDir(dir) {
   if (!fs.existsSync(dir)) {
@@ -51,11 +53,35 @@ function copyArtifacts() {
   }
 }
 
+function copyStaticAssets() {
+  if (!fs.existsSync(publicDir)) {
+    return;
+  }
+
+  ensureDir(resourcesDir);
+  for (const assetName of staticAssets) {
+    const sourcePath = path.join(publicDir, assetName);
+    const targetPath = path.join(resourcesDir, assetName);
+
+    if (!fs.existsSync(sourcePath)) {
+      console.warn(`[build-plugin] Static asset ${assetName} not found in public/, skipping.`);
+      continue;
+    }
+
+    ensureDir(path.dirname(targetPath));
+    fs.copyFileSync(sourcePath, targetPath);
+    console.log(
+      `[build-plugin] Copied asset public/${assetName} -> ${path.relative(projectRoot, targetPath)}`,
+    );
+  }
+}
+
 (async function build() {
   try {
     runTailwind();
     await runEsbuild();
     copyArtifacts();
+    copyStaticAssets();
     console.log("[build-plugin] Build completed successfully.");
   } catch (error) {
     console.error("[build-plugin] Build failed:", error);

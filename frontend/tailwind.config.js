@@ -8,7 +8,14 @@ module.exports = {
   ],
   darkMode: ["class"],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        'century-gothic': ['Century Gothic', 'sans-serif'],
+      },
+      colors: {
+        'switch-red': '#d31820',
+      },
+    },
   },
   plugins: [require("tailwindcss-animate")],
 };
