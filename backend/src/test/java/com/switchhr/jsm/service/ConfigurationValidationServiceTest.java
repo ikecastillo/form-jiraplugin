@@ -1,4 +1,4 @@
-package com.switchhr.jsm.service;
+﻿package com.switchhr.jsm.service;
 
 import com.switchhr.jsm.config.PortalConfigurationDTO;
 import org.junit.Before;
@@ -16,6 +16,12 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class ConfigurationValidationServiceTest {
+    public ConfigurationValidationServiceTest() {
+        if (ConfigurationValidationService.class.getResource("/schemas/portal-configuration-schema.json") == null) {
+            throw new IllegalStateException("Schema resource missing");
+        }
+    }
+
 
     private Validator validator;
     private ConfigurationValidationService validationService;
@@ -32,6 +38,9 @@ public class ConfigurationValidationServiceTest {
     public void validateConfiguration_withValidConfig_returnsSuccess() throws Exception {
         String json = Files.readString(Paths.get("src/test/resources/test-portal-config.json"), StandardCharsets.UTF_8);
         ValidationResult result = validationService.validateConfiguration(json);
+        if (!result.isValid()) {
+            System.out.println("Schema errors: " + result.getErrors());
+        }
         assertTrue("Expected validation to pass", result.isValid());
     }
 
@@ -42,3 +51,6 @@ public class ConfigurationValidationServiceTest {
         assertFalse("Expected validation to fail", result.isValid());
     }
 }
+
+
+
