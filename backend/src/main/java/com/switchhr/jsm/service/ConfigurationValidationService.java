@@ -1,4 +1,4 @@
-﻿package com.switchhr.jsm.service;
+package com.switchhr.jsm.service;
 
 import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
 import com.fasterxml.jackson.databind.JsonNode;

@@ -1,4 +1,4 @@
-﻿package com.switchhr.jsm.model;
+package com.switchhr.jsm.model;
 
 import net.java.ao.Entity;
 import net.java.ao.Preload;

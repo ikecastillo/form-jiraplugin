@@ -1,4 +1,4 @@
-﻿package com.switchhr.jsm.service;
+package com.switchhr.jsm.service;
 
 import com.atlassian.jira.component.ComponentAccessor;
 import com.atlassian.jira.user.ApplicationUser;
