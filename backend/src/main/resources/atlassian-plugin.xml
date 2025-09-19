@@ -11,6 +11,23 @@
 
     <resource type="i18n" name="i18n" location="hr-portal-plugin"/>
 
+    <component-import key="ao" interface="com.atlassian.activeobjects.external.ActiveObjects">
+        <description>Component to access Active Objects functionality from the plugin</description>
+    </component-import>
+
+    <component-import key="bean-validator" interface="javax.validation.Validator">
+        <description>JSR-303 validator used for configuration validation</description>
+    </component-import>
+
+    <ao key="ao-module">
+        <description>The module configuring the Active Objects service used by this plugin</description>
+        <entity>com.switchhr.jsm.model.PortalConfiguration</entity>
+        <entity>com.switchhr.jsm.model.ComponentDefinition</entity>
+        <entity>com.switchhr.jsm.model.ComponentInstance</entity>
+        <entity>com.switchhr.jsm.model.PortalPermission</entity>
+        <entity>com.switchhr.jsm.model.AuditRecord</entity>
+    </ao>
+
     <web-resource key="hr-portal-resources" name="HR Portal Web Resources">
         <dependency>com.atlassian.auiplugin:ajs</dependency>
         <resource type="download" name="hr-portal.css" location="/frontend/hr-portal.css"/>
@@ -23,4 +40,22 @@
         <description key="hr-portal.servlet.description">HR Portal Servlet</description>
         <url-pattern>/hr-portal</url-pattern>
     </servlet>
+
+    <servlet-filter key="hr-portal-auth-filter" class="com.switchhr.jsm.filter.HRPortalAuthenticationFilter">
+        <description>HR Portal Authentication Filter</description>
+        <url-pattern>/plugins/servlet/hr-portal/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+    </servlet-filter>
+
+    <servlet-filter key="hr-portal-csrf-filter" class="com.switchhr.jsm.filter.CSRFProtectionFilter">
+        <description>CSRF Protection for HR Portal API</description>
+        <url-pattern>/plugins/servlet/hr-portal/api/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+    </servlet-filter>
+
+    <rest key="hr-portal-rest" path="/hr-portal" version="1.0">
+        <description>HR Portal REST API</description>
+    </rest>
 </atlassian-plugin>

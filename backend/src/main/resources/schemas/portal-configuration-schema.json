@@ -1,0 +1,182 @@
+﻿{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "HR Portal Configuration",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "portalId",
+    "name",
+    "branding",
+    "layout",
+    "components",
+    "permissions",
+    "jiraIntegration"
+  ],
+  "properties": {
+    "portalId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 100
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 255
+    },
+    "description": {
+      "type": "string"
+    },
+    "branding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["primaryColor"],
+      "properties": {
+        "logoUrl": { "type": "string" },
+        "primaryColor": { "type": "string" },
+        "secondaryColor": { "type": "string" },
+        "customCSS": { "type": "string" }
+      }
+    },
+    "layout": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "columns"],
+      "properties": {
+        "type": { "type": "string" },
+        "columns": { "type": "integer", "minimum": 1 },
+        "gap": { "type": "string" },
+        "maxWidth": { "type": "string" },
+        "responsive": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "columns": { "type": "integer", "minimum": 1 },
+              "gap": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "instanceId",
+          "componentId",
+          "position",
+          "configuration",
+          "enabled",
+          "sortOrder"
+        ],
+        "properties": {
+          "instanceId": { "type": "string", "minLength": 1 },
+          "componentId": { "type": "string", "minLength": 1 },
+          "position": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["row", "column", "span"],
+            "properties": {
+              "row": { "type": "integer", "minimum": 0 },
+              "column": { "type": "integer", "minimum": 0 },
+              "span": { "type": "integer", "minimum": 1 }
+            }
+          },
+          "configuration": { "type": "object" },
+          "conditions": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["field", "operator"],
+              "properties": {
+                "field": { "type": "string" },
+                "operator": { "type": "string" },
+                "value": {}
+              }
+            }
+          },
+          "permissions": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "enabled": { "type": "boolean" },
+          "sortOrder": { "type": "integer", "minimum": 0 }
+        }
+      }
+    },
+    "permissions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["publicAccess"],
+      "properties": {
+        "allowedGroups": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "adminGroups": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "publicAccess": { "type": "boolean" }
+      }
+    },
+    "jiraIntegration": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["serviceDeskId", "fieldMappings", "enableAutoAssignment"],
+      "properties": {
+        "serviceDeskId": { "type": "string", "minLength": 1 },
+        "defaultRequestTypeId": { "type": "string" },
+        "fieldMappings": {
+          "type": "object",
+          "additionalProperties": { "type": "string" }
+        },
+        "workflowConfig": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "enableAutoAssignment": { "type": "boolean" },
+            "defaultAssignee": { "type": "string" },
+            "escalationPolicy": { "type": "string" }
+          }
+        },
+        "notificationConfig": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "notifyRequester": { "type": "boolean" },
+            "notifyManagers": { "type": "boolean" },
+            "additionalEmails": {
+              "type": "array",
+              "items": { "type": "string" }
+            }
+          }
+        },
+        "customFields": { "type": "object" },
+        "enableAutoAssignment": { "type": "boolean" },
+        "assignmentRules": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["condition", "assignee"],
+            "properties": {
+              "condition": { "type": "object" },
+              "assignee": { "type": "string", "minLength": 1 },
+              "queue": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "customSettings": {
+      "type": "object",
+      "additionalProperties": true
+    }
+  }
+}

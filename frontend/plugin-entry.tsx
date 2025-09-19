@@ -7,6 +7,7 @@ type BootContext = {
   baseUrl?: string;
   resourceBase?: string;
   resourceKey?: string;
+  portalId?: string;
 };
 
 const DEFAULT_MOUNT_ID = "hr-portal-root";
@@ -41,7 +42,7 @@ function renderApp(target: Element, context: BootContext) {
   const root = createRoot(target);
   root.render(
     <React.StrictMode>
-      <PortalApp assetBase={context.resourceBase} />
+      <PortalApp assetBase={context.resourceBase} portalId={context.portalId} />
     </React.StrictMode>,
   );
   return root;

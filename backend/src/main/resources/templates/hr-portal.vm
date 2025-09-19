@@ -43,7 +43,8 @@
                 baseUrl: "$baseUrl",
                 resourceKey: "$requiredResource",
                 resourceBase: "$resourceBase",
-                mountNodeId: mountId
+                mountNodeId: mountId,
+                portalId: "$portalId"
             };
 
             window.HR_PORTAL_BOOTSTRAP = context;
@@ -64,3 +65,6 @@
     </script>
 </body>
 </html>
+
+
+

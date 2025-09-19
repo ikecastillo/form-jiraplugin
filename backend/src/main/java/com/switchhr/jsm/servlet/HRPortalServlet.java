@@ -1,4 +1,4 @@
-package com.switchhr.jsm.servlet;
+﻿package com.switchhr.jsm.servlet;
 
 import com.atlassian.jira.component.ComponentAccessor;
 import com.atlassian.templaterenderer.TemplateRenderer;
@@ -17,6 +17,7 @@ public class HRPortalServlet extends HttpServlet {
     private static final String TEMPLATE_PATH = "templates/hr-portal.vm";
     private static final String RESOURCE_KEY = "com.switchhr.jsm.hrportal:hr-portal-resources";
     private static final String MOUNT_NODE_ID = "hr-portal-root";
+    private static final String DEFAULT_PORTAL_ID = "hr-portal";
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -32,11 +33,31 @@ public class HRPortalServlet extends HttpServlet {
             throw new IllegalStateException("ApplicationProperties service is not available");
         }
 
+        String portalId = resolvePortalId(req);
+
         Map<String, Object> context = new HashMap<>();
         context.put("baseUrl", applicationProperties.getBaseUrl());
         context.put("resourceKey", RESOURCE_KEY);
         context.put("mountNodeId", MOUNT_NODE_ID);
+        context.put("portalId", portalId);
 
         templateRenderer.render(TEMPLATE_PATH, context, resp.getWriter());
+    }
+
+    private String resolvePortalId(HttpServletRequest request) {
+        String portalId = request.getParameter("portalId");
+        if (portalId == null || portalId.trim().isEmpty()) {
+            String pathInfo = request.getPathInfo();
+            if (pathInfo != null) {
+                String[] parts = pathInfo.split("/");
+                if (parts.length > 1 && !parts[parts.length - 1].isEmpty()) {
+                    portalId = parts[parts.length - 1];
+                }
+            }
+        }
+        if (portalId == null || portalId.trim().isEmpty()) {
+            portalId = DEFAULT_PORTAL_ID;
+        }
+        return portalId;
     }
 }

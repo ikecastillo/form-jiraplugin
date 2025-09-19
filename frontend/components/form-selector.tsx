@@ -1,26 +1,33 @@
 ﻿"use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight, UserPlus, RefreshCw, Shield, FileText } from "lucide-react";
+import { ArrowRight, UserPlus, RefreshCw, Shield, FileText, LucideIcon } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { SwitchLogo } from "@/components/switch-logo";
 
-type FormId =
+export type FormId =
   | "transfer-promotion"
   | "new-user"
   | "security-access"
   | "equipment-request";
 
+const iconLookup: Record<string, LucideIcon> = {
+  "refresh-cw": RefreshCw,
+  "user-plus": UserPlus,
+  shield: Shield,
+  "file-text": FileText,
+};
+
 interface FormOption {
   id: FormId;
   title: string;
   description: string;
-  icon: typeof RefreshCw;
+  icon: LucideIcon;
   available: boolean;
   color: string;
 }
 
-const formOptions: FormOption[] = [
+const defaultFormOptions: FormOption[] = [
   {
     id: "transfer-promotion",
     title: "Employee Transfer & Promotion Checklist",
@@ -78,12 +85,56 @@ const cardVariants = {
   },
 };
 
+export interface FormSelectorOptionConfig {
+  id: FormId;
+  title: string;
+  description: string;
+  icon?: string;
+  available?: boolean;
+}
+
+export interface FormSelectorConfig {
+  title?: string;
+  description?: string;
+  options?: FormSelectorOptionConfig[];
+}
+
 interface FormSelectorProps {
   assetBase?: string;
+  config?: FormSelectorConfig;
   onSelect: (id: FormId) => void;
 }
 
-export function FormSelector({ assetBase = "", onSelect }: FormSelectorProps) {
+function resolveIcon(iconKey?: string): LucideIcon {
+  if (!iconKey) {
+    return RefreshCw;
+  }
+  const normalized = iconKey.trim().toLowerCase();
+  return iconLookup[normalized] ?? RefreshCw;
+}
+
+function buildOptions(config?: FormSelectorConfig): FormOption[] {
+  if (!config?.options || config.options.length === 0) {
+    return defaultFormOptions;
+  }
+
+  return config.options.map((option) => {
+    const base = defaultFormOptions.find((item) => item.id === option.id);
+    const available = option.available ?? base?.available ?? true;
+    return {
+      id: option.id,
+      title: option.title ?? base?.title ?? option.id,
+      description: option.description ?? base?.description ?? "",
+      icon: option.icon ? resolveIcon(option.icon) : base?.icon ?? RefreshCw,
+      available,
+      color: available ? "border-primary/20 hover:border-primary/40" : "border-border hover:border-muted-foreground/30",
+    };
+  });
+}
+
+export function FormSelector({ assetBase = "", config, onSelect }: FormSelectorProps) {
+  const options = buildOptions(config);
+
   const handleFormSelect = (option: FormOption) => {
     if (option.available) {
       onSelect(option.id);
@@ -101,9 +152,12 @@ export function FormSelector({ assetBase = "", onSelect }: FormSelectorProps) {
         <div className="flex items-center justify-center mb-6">
           <SwitchLogo size="lg" assetBase={assetBase} />
         </div>
-        <h1 className="brand-heading text-4xl text-foreground mb-4">HR Portal</h1>
+        <h1 className="brand-heading text-4xl text-foreground mb-4">
+          {config?.title ?? "HR Portal"}
+        </h1>
         <p className="text-muted-foreground text-xl leading-relaxed max-w-2xl mx-auto">
-          Select the appropriate form to begin your HR process. Complete forms ensure smooth operations and compliance.
+          {config?.description ??
+            "Select the appropriate form to begin your HR process. Complete forms ensure smooth operations and compliance."}
         </p>
       </motion.div>
 
@@ -113,7 +167,7 @@ export function FormSelector({ assetBase = "", onSelect }: FormSelectorProps) {
         initial="hidden"
         animate="visible"
       >
-        {formOptions.map((option) => {
+        {options.map((option) => {
           const IconComponent = option.icon;
           const cardClasses = [
             "group h-full cursor-pointer transition-all duration-300",
@@ -179,3 +233,4 @@ export function FormSelector({ assetBase = "", onSelect }: FormSelectorProps) {
     </div>
   );
 }
+
