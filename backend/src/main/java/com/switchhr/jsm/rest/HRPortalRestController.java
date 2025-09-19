@@ -1,4 +1,4 @@
-﻿package com.switchhr.jsm.rest;
+package com.switchhr.jsm.rest;
 
 import com.atlassian.jira.user.ApplicationUser;
 import com.fasterxml.jackson.databind.JsonNode;

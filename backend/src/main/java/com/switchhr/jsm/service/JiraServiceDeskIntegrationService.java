@@ -2,7 +2,6 @@
 
 import com.atlassian.jira.component.ComponentAccessor;
 import com.atlassian.jira.user.ApplicationUser;
-import com.atlassian.plugin.spring.scanner.annotation.component.Scanned;
 import com.atlassian.sal.api.ApplicationProperties;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -23,7 +22,6 @@ import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 @Component
-@Scanned
 public class JiraServiceDeskIntegrationService {
 
     private final HttpClient httpClient;
@@ -154,3 +152,4 @@ public class JiraServiceDeskIntegrationService {
         return httpClient.send(requestBuilder.build(), HttpResponse.BodyHandlers.ofString());
     }
 }
+

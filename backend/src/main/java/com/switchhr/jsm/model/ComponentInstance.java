@@ -1,7 +1,6 @@
 ﻿package com.switchhr.jsm.model;
 
 import net.java.ao.Entity;
-import net.java.ao.ManyToOne;
 import net.java.ao.Preload;
 import net.java.ao.schema.NotNull;
 import net.java.ao.schema.StringLength;
@@ -21,7 +20,6 @@ public interface ComponentInstance extends Entity {
     String getComponentId();
     void setComponentId(String componentId);
 
-    @ManyToOne
     @NotNull
     PortalConfiguration getPortalConfiguration();
     void setPortalConfiguration(PortalConfiguration portalConfiguration);

@@ -1,4 +1,4 @@
-﻿package com.switchhr.jsm.config;
+package com.switchhr.jsm.config;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

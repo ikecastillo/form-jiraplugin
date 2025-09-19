@@ -1,4 +1,4 @@
-﻿package com.switchhr.jsm.servlet;
+package com.switchhr.jsm.servlet;
 
 import com.atlassian.jira.component.ComponentAccessor;
 import com.atlassian.templaterenderer.TemplateRenderer;

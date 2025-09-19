@@ -3,7 +3,6 @@
 import com.atlassian.activeobjects.external.ActiveObjects;
 import com.atlassian.jira.security.groups.GroupManager;
 import com.atlassian.jira.user.ApplicationUser;
-import com.atlassian.plugin.spring.scanner.annotation.component.Scanned;
 import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.switchhr.jsm.config.PortalConfigurationDTO;
@@ -19,7 +18,6 @@ import java.util.List;
 import java.util.Optional;
 
 @Component
-@Scanned
 public class PortalPermissionService {
 
     private final ActiveObjects activeObjects;
@@ -116,3 +114,4 @@ public class PortalPermissionService {
         }
     }
 }
+

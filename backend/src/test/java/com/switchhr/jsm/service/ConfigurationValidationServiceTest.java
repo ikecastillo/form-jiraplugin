@@ -1,4 +1,4 @@
-﻿package com.switchhr.jsm.service;
+package com.switchhr.jsm.service;
 
 import com.switchhr.jsm.config.PortalConfigurationDTO;
 import org.junit.Before;

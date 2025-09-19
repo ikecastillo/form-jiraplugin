@@ -1,7 +1,6 @@
 ﻿package com.switchhr.jsm.model;
 
 import net.java.ao.Entity;
-import net.java.ao.ManyToOne;
 import net.java.ao.Preload;
 import net.java.ao.schema.Indexed;
 import net.java.ao.schema.NotNull;
@@ -15,7 +14,6 @@ public interface PortalPermission extends Entity {
     String PERMISSION_VIEW = "VIEW";
     String PERMISSION_ADMIN = "ADMIN";
 
-    @ManyToOne
     @NotNull
     PortalConfiguration getPortalConfiguration();
     void setPortalConfiguration(PortalConfiguration portalConfiguration);

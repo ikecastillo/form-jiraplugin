@@ -1,4 +1,4 @@
-﻿package com.switchhr.jsm.filter;
+package com.switchhr.jsm.filter;
 
 import com.atlassian.jira.component.ComponentAccessor;
 import com.atlassian.jira.security.JiraAuthenticationContext;

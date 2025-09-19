@@ -1,4 +1,4 @@
-﻿package com.switchhr.jsm.service;
+package com.switchhr.jsm.service;
 
 import java.util.Collections;
 import java.util.List;

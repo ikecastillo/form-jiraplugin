@@ -1,7 +1,6 @@
 ﻿package com.switchhr.jsm.service;
 
 import com.atlassian.activeobjects.external.ActiveObjects;
-import com.atlassian.plugin.spring.scanner.annotation.component.Scanned;
 import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -25,7 +24,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
-@Scanned
 public class PortalConfigurationService {
 
     private final ActiveObjects activeObjects;
@@ -217,3 +215,4 @@ public class PortalConfigurationService {
         }
     }
 }
+
