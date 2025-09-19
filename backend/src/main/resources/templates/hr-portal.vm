@@ -15,16 +15,16 @@
     <link rel="stylesheet" href="$resourceBase/hr-portal.css" />
     <style>
         body {
-            background: #f6f7fb;
+            background: #ffffff;
             margin: 0;
         }
         .hr-portal-shell {
             min-height: 100vh;
-            display: flex;
-            align-items: flex-start;
-            justify-content: center;
             padding: 3rem 1.5rem;
         }
+    </style>
+</head>
+<body>
     <div class="hr-portal-shell">
         <div id="$mountNodeId" class="hr-portal-root"></div>
     </div>
