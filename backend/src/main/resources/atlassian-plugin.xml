@@ -11,13 +11,7 @@
 
     <resource type="i18n" name="i18n" location="hr-portal-plugin"/>
 
-    <component-import key="ao" interface="com.atlassian.activeobjects.external.ActiveObjects">
-        <description>Component to access Active Objects functionality from the plugin</description>
-    </component-import>
 
-    <component-import key="bean-validator" interface="javax.validation.Validator">
-        <description>JSR-303 validator used for configuration validation</description>
-    </component-import>
 
     <ao key="ao-module">
         <description>The module configuring the Active Objects service used by this plugin</description>
