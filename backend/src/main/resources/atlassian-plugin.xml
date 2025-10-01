@@ -23,4 +23,15 @@
         <description key="hr-portal.servlet.description">HR Portal Servlet</description>
         <url-pattern>/hr-portal</url-pattern>
     </servlet>
+
+    <servlet key="portal-settings-servlet" class="com.switchhr.jsm.servlet.PortalSettingsServlet">
+        <description>Portal Settings Servlet</description>
+        <url-pattern>/portal-settings</url-pattern>
+    </servlet>
+
+    <web-item key="portal-settings-web-item" section="com.atlassian.jira.jira-project-config-plugin:project-config-nav-links" weight="900">
+        <label>Portal Settings</label>
+        <link>/plugins/servlet/portal-settings?projectKey=${project.key}</link>
+        <context-provider class="com.atlassian.jira.plugin.webfragment.contextproviders.ProjectContextProvider" />
+    </web-item>
 </atlassian-plugin>
