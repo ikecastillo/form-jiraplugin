@@ -11,6 +11,10 @@
 
     <resource type="i18n" name="i18n" location="hr-portal-plugin"/>
 
+    <!-- Component imports for required services -->
+    <component-import key="templateRenderer" interface="com.atlassian.templaterenderer.TemplateRenderer"/>
+    <component-import key="applicationProperties" interface="com.atlassian.sal.api.ApplicationProperties"/>
+
     <web-resource key="hr-portal-resources" name="HR Portal Web Resources">
         <dependency>com.atlassian.auiplugin:ajs</dependency>
         <resource type="download" name="hr-portal.css" location="/frontend/hr-portal.css"/>
